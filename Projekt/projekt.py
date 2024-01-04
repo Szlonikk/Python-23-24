@@ -1,3 +1,4 @@
+from time import sleep
 import pygame
 
 from Platforma import Platforma
@@ -8,7 +9,7 @@ from Klocek import Klocek
 SZEROKOSC_EKRANU = 1024 
 WYSOKOSC_EKRANU = 800
 Poziom = 0
-Zycia = 3
+Zycia = 1
 
 #ustawienia pygame
 pygame.init()
@@ -19,10 +20,11 @@ czcionka = pygame.font.SysFont('Comic Sans MS', 24)
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU, WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
 obraz_tla = pygame.image.load('images/background.png')
+obraz_game_over = pygame.image.load('images/gameover.jpg')
 
 #poziomy gry
 poziom1 = [
-    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -96,13 +98,17 @@ while gra_dziala:
         dodaj_klocki()
     
 
-    #aktualizacja kulki
+ 
     kulka.aktualizuj(platforma, klocki)
 
-    #sprawdzenie czy kulka dotknela dolnej krawedzi
+    #sprawdzenie czy kulka spadla
     if kulka.przegrana:
         Zycia -= 1
         if Zycia <= 0:
+            ekran.fill((0, 0, 0))
+            ekran.blit(obraz_game_over, ((SZEROKOSC_EKRANU - obraz_game_over.get_width()) // 2, (WYSOKOSC_EKRANU - obraz_game_over.get_height()) // 2))            
+            pygame.display.flip()
+            pygame.time.delay(500)
             break
         kulka.zresetuj_pozycje()
         platforma.zresetuj_pozycje()
@@ -127,6 +133,6 @@ while gra_dziala:
     ekran.blit(tekst, (16, 16))
 
     pygame.display.flip()
-    zegar.tick(30)
+    zegar.tick(60)
 
 pygame.quit()

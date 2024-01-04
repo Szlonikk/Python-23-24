@@ -6,7 +6,10 @@ WYSOKOSC_EKRANU = 800
 class Platforma(pygame.sprite.Sprite):
     def __init__(self):
         super(Platforma, self).__init__()
-        self.obraz = pygame.image.load("images/pad.png")
+        oryginalny_obraz = pygame.image.load("images/pad.png")
+        nowy_rozmiar = (140, 50)
+        self.obraz = pygame.transform.scale(oryginalny_obraz, nowy_rozmiar)
+
         self.porusza_sie = 0
         self.zresetuj_pozycje()
 
@@ -16,7 +19,7 @@ class Platforma(pygame.sprite.Sprite):
 
     #poruszanie platformą
     def ruszaj_platforma(self, wartosc):
-        predkosc = 10
+        predkosc = 15
         self.pozycja.move_ip(wartosc*predkosc, 0)
         self.porusza_sie = wartosc
         if self.pozycja.left <= 0: self.pozycja.x = 0
