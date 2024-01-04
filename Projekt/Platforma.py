@@ -13,11 +13,9 @@ class Platforma(pygame.sprite.Sprite):
         self.porusza_sie = 0
         self.zresetuj_pozycje()
 
-    #resetowanie pozycji
     def zresetuj_pozycje(self):
         self.pozycja = pygame.Rect(SZEROKOSC_EKRANU/2-70, WYSOKOSC_EKRANU-100, 140, 30)
 
-    #poruszanie platformą
     def ruszaj_platforma(self, wartosc):
         predkosc = 15
         self.pozycja.move_ip(wartosc*predkosc, 0)
@@ -25,6 +23,5 @@ class Platforma(pygame.sprite.Sprite):
         if self.pozycja.left <= 0: self.pozycja.x = 0
         if self.pozycja.right >= SZEROKOSC_EKRANU: self.pozycja.x = SZEROKOSC_EKRANU-140
     
-    #aktualizacja
     def aktualizuj(self):
         self.porusza_sie = 0

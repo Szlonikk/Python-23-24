@@ -8,8 +8,6 @@ class Klocek(pygame.sprite.Sprite):
         self.pozycja = pygame.Rect(x, y, 96, 48)
         self.zdrowie = zdrowie
 
-
-    #aktualizacja
     def aktualizuj(self):
         maska_koloru = 0
         if self.zdrowie == 3:
@@ -24,7 +22,6 @@ class Klocek(pygame.sprite.Sprite):
     def update(self):
         self.aktualizuj()
         
-    #funkcja wywolywana podczas zderzenia z kulka
     def uderzenie(self):
         self.zdrowie -= 1
         if self.zdrowie <= 0:

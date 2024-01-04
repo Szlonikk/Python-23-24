@@ -5,21 +5,19 @@ from Platforma import Platforma
 from Kulka import Kulka
 from Klocek import Klocek
 
-#wysokość i szerokość ekranu
 SZEROKOSC_EKRANU = 1024 
 WYSOKOSC_EKRANU = 800
 Poziom = 0
 Zycia = 1
 
-#ustawienia pygame
+
 pygame.init()
 pygame.font.init()
 
-#obiekty czcionki, ekranu, zegara i tła
 czcionka = pygame.font.SysFont('Comic Sans MS', 24)
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU, WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
-obraz_tla = pygame.image.load('images/background.png')
+obraz_tlo = pygame.image.load('images/background.png')
 obraz_game_over = pygame.image.load('images/gameover.jpg')
 
 #poziomy gry
@@ -71,7 +69,7 @@ dodaj_klocki()
 platforma = Platforma()
 kulka = Kulka()
 
-#glowna petla
+
 gra_dziala = True
 while gra_dziala:
     for zdarzenie in pygame.event.get():
@@ -113,22 +111,17 @@ while gra_dziala:
         kulka.zresetuj_pozycje()
         platforma.zresetuj_pozycje()
 
-    #aktualizacja klockow i platformy
     klocki.update()
     platforma.aktualizuj()
     
-    #wyswietl tlo
-    ekran.blit(obraz_tla, (0,0))
+    ekran.blit(obraz_tlo, (0,0))
 
-    #wyswietl klocki
     for brick in klocki:
         ekran.blit(brick.obraz, brick.pozycja)
     
-    #wyswietl gracza i kulkę
     ekran.blit(platforma.obraz, platforma.pozycja)
     ekran.blit(kulka.obraz, kulka.pozycja)
 
-    #wyswietlenie wyniku
     tekst = czcionka.render(f'Poziom: {Poziom+1}, Życia: {Zycia}', False, (255, 0, 255))
     ekran.blit(tekst, (16, 16))
 
